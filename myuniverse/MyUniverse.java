@@ -16,17 +16,17 @@ public class MyUniverse{
 		//Set up camera
 		this.viewingPlatform = this.universe.getViewingPlatform();
 		this.camera = this.viewingPlatform.getViewPlatformTransform();
-		/*//Let's assume these 2 are allowed already
-		this.camera.setCapability(TransformGroup.ALLOW_TRANSFORM_READ);
-		this.camera.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
-		*/
-		//Init the terrain? And maybe add it to the universe?
+		
+		//Init the terrain. Do not add it to the universe till the terrain is generated
 		this.terrain = new BranchGroup();
-		//Add lights?
+		//Add lights
 		addLights();
+		
+		//You could change the order to Lights! Camera! Terrain!!!
 	}
 	
 	public void addLights(){
+		//Ambient lighting
 		AmbientLight light2 = new AmbientLight(new Color3f(0.3f, 0.3f, 0.3f));
 		light2.setInfluencingBounds(worldBounds);
 		terrain.addChild(light2);
@@ -37,17 +37,38 @@ public class MyUniverse{
 	}
 	
 	public void moveCamera(){
+		Transform3D transform= new Transform3D();
+		Vector3f v = new Vector3f();
 		
+		
+		//Take the existing transform, ...
+		camera.getTransform(transform);
+		transform.get(v);
+		//change it...
+		v.x+= 0.2f;
+		v.y+= 0.2f;
+		//And set it back
+		transform.set(v);
+		camera.setTransform(transform);
 	}
 	
 	public void goLive(){
+		//Add terrain to universe so it goes live
 		this.universe.addBranchGraph(this.terrain);
 	}
 	
 	public static void main(String args[]){
+		
 		MyUniverse world = new MyUniverse();
+		
+		//Generate the terrain
 		world.terrain.addChild(new ColorCube(0.4));
+		
+		//Set the camera
 		world.viewingPlatform.setNominalViewingTransform();
+		world.moveCamera();
+		
+		//Go live
 		world.goLive();
 	}
 	
