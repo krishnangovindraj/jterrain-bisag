@@ -9,13 +9,16 @@ public class MyUniverse{
 	
 	public BranchGroup terrain = null;	//WE don't need the terrain to move around, I think :/
 	public BoundingSphere worldBounds = null;
+	public Canvas3D canvas = null;
+	
 	public MyCamera camera = null;
+	public MyEventHandler eventHandler = null;
 	
 	public MyUniverse(){
 		this.universe = new SimpleUniverse();
 		//Set up camera
 		this.camera = new MyCamera(this.universe);
-		
+		this.canvas = this.universe.getCanvas();
 		//Init the terrain. Do not add it to the universe till the terrain is generated
 		this.terrain = new BranchGroup();
 		//Add lights
@@ -33,6 +36,11 @@ public class MyUniverse{
 	
 	public void computeBounds(){
 		this.worldBounds = new BoundingSphere(new Point3d(0.0, 0.0, 0.0),100.0);
+	}
+	
+	public void bindEventHandler(){
+		this.eventHandler = new MyEventHandler();
+		this.canvas.addKeyListener(this.eventHandler);
 	}
 	
 	public void goLive(){
