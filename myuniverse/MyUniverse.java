@@ -1,7 +1,7 @@
 import com.sun.j3d.utils.universe.*;
 import javax.vecmath.*;
 import javax.media.j3d.*;
-import com.sun.j3d.utils.geometry.ColorCube;
+
 
 public class MyUniverse{
 	public SimpleUniverse universe=null;
@@ -39,21 +39,19 @@ public class MyUniverse{
 		//Add terrain to universe so it goes live
 		this.universe.addBranchGraph(this.terrain);
 	}
-	
+/*	
 	public static void main(String args[]){
 		
 		MyUniverse world = new MyUniverse();
-		
+		world.computeBounds();
 		//Generate the terrain
 		world.terrain.addChild(new ColorCube(0.4));
 		
-		//Set the camera
-		world.camera.viewingPlatform.setNominalViewingTransform();
-		world.camera.translateCamera(0.2d,0.2d,0.2d);
-		world.camera.rotateCamera(Math.PI/12.0d ,Math.PI/12.0d,Math.PI/12.0d);
+		doStuff(world);
 		
 		//Go live
 		world.goLive();
+		
 	}
-	
+	*/
 }

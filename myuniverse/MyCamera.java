@@ -26,12 +26,48 @@ public class MyCamera{
 	//Space for state of the camera/Other state variables
 	
 	
+	//Constructor
 	public MyCamera(SimpleUniverse universe){
 		parentUniverse = universe;
 		viewingPlatform = parentUniverse.getViewingPlatform();
 		transformGroup = viewingPlatform.getViewPlatformTransform();
 	}
 	
+	
+	public Transform3D getTransform(){
+		Transform3D transform = new Transform3D();
+		transformGroup.getTransform(transform);
+		return transform;
+	}
+	
+	
+	//methods to get state
+	public Vector3f getPosition(){
+		Transform3D transform = new Transform3D();
+		Vector3f v= new Vector3f();
+		transformGroup.getTransform(transform);
+		transform.get(v);
+		return v;
+	}
+	
+	//methods to set state
+	public void setNominalView(){
+		viewingPlatform.setNominalViewingTransform();
+	}
+	
+	public void setPosition(double x, double y, double z){
+		Transform3D transform= new Transform3D();
+		Vector3d v = new Vector3d(x,y,z);
+		transform.set(v);
+		transformGroup.setTransform(transform);
+	}
+	
+	public void setOrientation(){
+		//Nothing yet
+	}
+	
+	
+	//Methods to transform
 	
 	public void translateCamera(double moveX,double moveY, double moveZ){
 		Transform3D transform= new Transform3D();
@@ -49,6 +85,7 @@ public class MyCamera{
 		transform.set(v);
 		transformGroup.setTransform(transform);
 	}
+	
 	
 	public void rotateCamera(double radX,double radY,double radZ){
 		Transform3D rotateX = new Transform3D();
@@ -72,4 +109,5 @@ public class MyCamera{
 		//Set it back
 		transformGroup.setTransform(transform);
 	}
+	
 }
