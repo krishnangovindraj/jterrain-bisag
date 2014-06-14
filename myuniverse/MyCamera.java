@@ -14,6 +14,7 @@
 		Keyboard (WASD): Translate the camera in Horizontal plane? Add vertical translation if needed. Not much work
 */
 
+//import static java.lang.System.out;
 import com.sun.j3d.utils.universe.*;
 import javax.vecmath.*;
 import javax.media.j3d.*;
@@ -42,14 +43,17 @@ public class MyCamera{
 	
 	
 	//methods to get state
-	public Vector3f getPosition(){
+	public Vector3d getPosition(){
 		Transform3D transform = new Transform3D();
-		Vector3f v= new Vector3f();
+		Vector3d v= new Vector3d();
 		transformGroup.getTransform(transform);
 		transform.get(v);
 		return v;
 	}
 	
+	/*public Vector3d getOrientation(){
+		
+	}*/
 	//methods to set state
 	public void setNominalView(){
 		viewingPlatform.setNominalViewingTransform();
@@ -70,20 +74,29 @@ public class MyCamera{
 	//Methods to transform
 	
 	public void translateCamera(double moveX,double moveY, double moveZ){
-		Transform3D transform= new Transform3D();
-		Vector3f v = new Vector3f();
-		
 		//Take the existing transform, ...
-		transformGroup.getTransform(transform);
-		transform.get(v);
+		Transform3D original = new Transform3D();
+		transformGroup.getTransform(original);
+		
 		//change it...
-		v.x+= moveX;
-		v.y+= moveY;
-		v.z+= moveZ;
+		Transform3D transform= new Transform3D();
+		Vector3d v = new Vector3d(moveX,moveY,moveZ);
 		
 		//And set it back
 		transform.set(v);
-		transformGroup.setTransform(transform);
+		original.mul(transform);
+		transformGroup.setTransform(original);
+	}
+	
+	public void translateCamera(Vector3d displacement){
+		Transform3D original= new Transform3D();
+		transformGroup.getTransform(original);
+		
+		Transform3D transform = new Transform3D();
+		transform.set(displacement);
+		
+		original.mul(transform);
+		transformGroup.setTransform(original);
 	}
 	
 	
@@ -95,7 +108,7 @@ public class MyCamera{
 
 		rotateX.rotX(radX);
 		rotateY.rotY(radY);
-		rotateX.rotY(radZ);
+		rotateZ.rotZ(radZ);
 		
 		//Get the existing Transform3D
 		Transform3D transform = new Transform3D();
@@ -110,4 +123,10 @@ public class MyCamera{
 		transformGroup.setTransform(transform);
 	}
 	
+	public void transformCamera(Transform3D transform){
+		Transform3D currentTransform = new Transform3D();
+		transformGroup.getTransform(currentTransform);
+		currentTransform.mul(transform);
+		transformGroup.setTransform(currentTransform);
+	}
 }
