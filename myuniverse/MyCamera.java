@@ -24,6 +24,7 @@ public class MyCamera{
 	public ViewingPlatform viewingPlatform = null;
 	public SimpleUniverse parentUniverse = null;
 	
+	
 	//Space for state of the camera/Other state variables
 	
 	
@@ -38,6 +39,7 @@ public class MyCamera{
 	public Transform3D getTransform(){
 		Transform3D transform = new Transform3D();
 		transformGroup.getTransform(transform);
+		TransformGroup yHinge = new TransformGroup();
 		return transform;
 	}
 	
@@ -123,6 +125,30 @@ public class MyCamera{
 		transformGroup.setTransform(transform);
 	}
 	
+	/*
+	public void rotateCamera(double radX,double radY,double radZ){
+		Transform3D rotateX = new Transform3D();
+		Transform3D rotateY = new Transform3D();
+		Transform3D rotateZ = new Transform3D();
+		
+
+		rotateX.rotX(radX);
+		rotateY.rotY(radY);
+		rotateZ.rotZ(radZ);
+		
+		//Get the existing Transform3D
+		Transform3D transform = new Transform3D();
+		transformGroup.getTransform(transform);
+		
+		//Combine all of them into the existing rotate
+		transform.mul(rotateX);
+		transform.mul(rotateY);
+		transform.mul(rotateZ);
+		
+		//Set it back
+		transformGroup.setTransform(transform);
+	}
+	*/
 	public void transformCamera(Transform3D transform){
 		Transform3D currentTransform = new Transform3D();
 		transformGroup.getTransform(currentTransform);

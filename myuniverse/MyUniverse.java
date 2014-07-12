@@ -8,7 +8,8 @@ public class MyUniverse{
 	
 	
 	public BranchGroup terrain = null;	//WE don't need the terrain to move around, I think :/
-	public BoundingSphere worldBounds = null;
+	//public BoundingSphere worldBounds = null;
+	public Bounds worldBounds = null;
 	public Canvas3D canvas = null;
 	
 	public MyCamera camera = null;
@@ -29,17 +30,25 @@ public class MyUniverse{
 	
 	public void addLights(){
 		//Ambient lighting
-		AmbientLight light2 = new AmbientLight(new Color3f(0.3f, 0.3f, 0.3f));
+		/*
+		AmbientLight light2 = new AmbientLight(new Color3f(1f, 1f, 1f));
 		light2.setInfluencingBounds(worldBounds);
-		terrain.addChild(light2);
+		terrain.addChild(light2);*/
+		DirectionalLight light1 = new DirectionalLight(new Color3f(1f,1f,1f), new Vector3f(0f,-1f,0f));
+		light1.setInfluencingBounds(worldBounds);
+		terrain.addChild(light1);
 	}
 	
 	public void computeBounds(){
-		this.worldBounds = new BoundingSphere(new Point3d(0.0, 0.0, 0.0),100.0);
+		this.worldBounds = new BoundingSphere(new Point3d(0.0, 0.0, 0.0),500.0);
+	}
+	
+	public void setBounds(Bounds b){
+		this.worldBounds = b;
 	}
 	
 	public void bindEventHandler(){
-		this.eventHandler = new MyEventHandler();
+		this.eventHandler = new MyEventHandler(this);
 		this.canvas.addKeyListener(this.eventHandler);
 	}
 	
