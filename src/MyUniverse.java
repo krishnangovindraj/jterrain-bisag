@@ -1,9 +1,28 @@
 import com.sun.j3d.utils.universe.*;
 import javax.vecmath.*;
 import javax.media.j3d.*;
-
+import java.io.*;
 
 public class MyUniverse{
+	static{	//We have external dependencies, namely j3dcore-ogl.dll. Check them 
+		String requiredLibs[] = {"j3dcore-ogl"};
+		boolean allLibsAvailable = true;
+
+		for(int i=0;i<requiredLibs.length;i++){
+			try {
+				System.loadLibrary(requiredLibs[i]);
+			} catch (UnsatisfiedLinkError e) {
+				allLibsAvailable =false;
+				System.out.println(requiredLibs[i] + " not found. run\n jar xf <thisjarfile>.jar " + requiredLibs[i] + ".dll" );
+			}
+		}
+		if(!allLibsAvailable){
+			//Note, If you're planning to make an applet, This is as far as you go. Sorry. The lib dependency will stop you. You'll have to get the user to install the dll on his PC
+			System.out.println("The required libraries were not found. They are packaged with the jar. Please extract them");
+			System.exit(1);
+		}
+	}
+	
 	public SimpleUniverse universe=null;
 	
 	
