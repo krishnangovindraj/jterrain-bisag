@@ -18,7 +18,7 @@ This project needs to find the dependencies to run. The class path needs to be s
 
 You will also need the libj3dcore-ogl.so file to be discoverable.
 
-`export LD_LIBRARY_PATH="/path/to/j3d/lib/amd64/"
+`export LD_LIBRARY_PATH="/path/to/j3d/lib/amd64/"`
 
 It's also handy to do all this in a single bash file. View compile.sh for a better idea.
 
