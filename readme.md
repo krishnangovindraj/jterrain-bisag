@@ -25,3 +25,8 @@ It's also handy to do all this in a single bash file. View compile.sh for a bett
 ### Running 
 There is a DEMViewerExample file that can be run to see how it works. Simply run 
 `bash runexample.sh`. Remember to extract the provided sample data 
+
+### Using the example:
+It should run.
+Use WASDRF to move along the 3 axes. Resize the window as needed.
+UHJKLOP to rotate along the 3 axes.
