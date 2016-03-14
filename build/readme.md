@@ -1,0 +1,1 @@
+This is where your .class files come ( Where compile.sh puts them and where runexample.sh expects them)

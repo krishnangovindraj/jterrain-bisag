@@ -1,0 +1,6 @@
+gitignoreme/**
+build/**
+lib/**
+
+!lib/readme.md
+!build/readme.md
